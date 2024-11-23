@@ -10,13 +10,17 @@ If you're self-hosting a ghost app, you should be able to start this app on the 
 
 ## Usage 
 
-First you'll need your blueky handle and password. Then you can start the app up: 
+First you'll need your blueky handle and an app password. The integration will work with your regular password but you should instead create an app password so you're not slinging around your actual password. You can find instructions on how to create an app password here: 
 
-`node .\index.js --blueskyidentifier 'dril.bsky.social'  --blueskypass 'myPass'`
+https://lifehacker.com/tech/why-you-should-be-using-bluesky-app-passwords
+
+Then you can start the integration listening with:
+
+`node .\index.js --blueskyidentifier 'dril.bsky.social'  --blueskypass 'myAppPass'`
 
 You can configure the port: 
 
-`node .\index.js --blueskyidentifier 'dril.bsky.social'  --blueskypass 'myPass' --port 4200`
+`node .\index.js --blueskyidentifier 'dril.bsky.social'  --blueskypass 'myAppPass' --port 4200`
 
 Otherwise it will default to port 7969.
 

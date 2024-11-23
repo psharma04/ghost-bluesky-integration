@@ -33,7 +33,7 @@ if (!port) {
 }
 
 app.post('/post-published', async (req, res) => {
-    console.log()
+    console.log('Post received')
     const post = req?.body?.post?.current;
     if (!post || !post.excerpt || !post.url) {
         res.statusCode = 403;
