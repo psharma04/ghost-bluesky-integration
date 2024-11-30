@@ -11,7 +11,8 @@ const blueskyMaxCharLength = 300;
 const optionDefinitions = [
     { name: 'port', defaultOption: 7969, type: Number },
     { name: 'blueskyidentifier', alias: 'u', type: String },
-    { name: 'blueskypass', alias: 'p', type: String }
+    { name: 'blueskypass', alias: 'p', type: String },
+    { name: 'dataserver', alias: 's', defaultOption: 'https://bsky.social', type: String }
 ]
 
 const options = commandLineArgs(optionDefinitions)
@@ -25,11 +26,18 @@ if (!valid) {
 }
 
 const defaultport = 7969
+const defaultDataServer = 'https://bsky.social'
 
 let port = options.port;
 if (!port) {
     console.log(`Using default port ${defaultport}`)
     port = defaultport;
+}
+
+let dataServer = options.dataserver;
+if (!dataServer) {
+    console.log(`No data server provided, using default ${defaultDataServer}`)
+    dataServer = defaultDataServer;
 }
 
 app.post('/post-published', async (req, res) => {
@@ -71,7 +79,7 @@ function truncateString(str, num) {
 
 const createBlueskySession = async () => {
     try {
-        const response = await axios.post('https://bsky.social/xrpc/com.atproto.server.createSession', {
+        const response = await axios.post(`https://${dataServer}/xrpc/com.atproto.server.createSession`, {
             identifier: options.blueskyidentifier,
             password: options.blueskypass
         }, {
@@ -90,7 +98,7 @@ const createBlueskySession = async () => {
 
 const createRecord = async (token, text, linkFacets) => {
     try {
-        const response = await axios.post('https://bsky.social/xrpc/com.atproto.repo.createRecord', {
+        const response = await axios.post(`https://${dataServer}/xrpc/com.atproto.repo.createRecord`, {
             collection: 'app.bsky.feed.post',
             repo: options.blueskyidentifier,
             record: {
