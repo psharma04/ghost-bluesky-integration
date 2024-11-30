@@ -16,4 +16,4 @@ COPY index.js .
 EXPOSE 7969
 
 # Command to run the application, using the environment variables
-CMD node index.js --blueskyidentifier $IDENTIFIER --blueskypass $PASS
+CMD node index.js --blueskyidentifier $IDENTIFIER --blueskypass $PASS --dataserver $DATASERVER
